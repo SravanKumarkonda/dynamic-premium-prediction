@@ -13,13 +13,19 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.8'
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
         
     - name: Build and start containers
       run: |
-        docker-compose up -d --build
+        docker-compose build
+        docker-compose up -d
         
     - name: Wait for services
-      run: sleep 30
+      run: |
+        sleep 30
+        docker ps
         
     - name: Train model
       run: |
@@ -35,23 +41,6 @@ jobs:
         cat metrics.json | jq -r '. | "R² Score: \(.r2)\nRMSE: \(.rmse)\nMSE: \(.mse)"' >> $GITHUB_STEP_SUMMARY
         echo "## Best Parameters" >> $GITHUB_STEP_SUMMARY
         cat metrics.json | jq -r '.best_params' >> $GITHUB_STEP_SUMMARY
-        
-    - name: Download MLflow artifacts
-      run: |
-        mkdir -p model_artifacts
-        docker cp dynamic_premium_prediction-mlflow-1:/mlflow/mlartifacts/. model_artifacts/
-
-    - name: Upload model artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: model-artifacts
-        path: model_artifacts/
-        
-    - name: Upload metrics artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: model-metrics
-        path: metrics.json
         
     - name: Clean up
       if: always()
