@@ -1,0 +1,31 @@
+services:
+  mlflow:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.mlflow
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlruns
+    networks:
+      - ml_network
+
+  flask_app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.flask
+    ports:
+      - "8000:8000"
+      - "8888:8888"  # For Jupyter
+    volumes:
+      - .:/app
+    depends_on:
+      - mlflow
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+    networks:
+      - ml_network
+
+networks:
+  ml_network:
+    driver: bridge

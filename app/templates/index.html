@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dynamic Premium Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 200px;
+        }
+        input, select {
+            width: 200px;
+            padding: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+</head>
+<body>
+    <h1>Dynamic Premium Prediction</h1>
+    
+    <form method="POST">
+        <div class="form-group">
+            <label>Speed (km/h):</label>
+            <input type="number" step="0.01" name="speed" required>
+        </div>
+
+        <div class="form-group">
+            <label>Acceleration (m/s²):</label>
+            <input type="number" step="0.01" name="acceleration" required>
+        </div>
+
+        <div class="form-group">
+            <label>Braking Pattern:</label>
+            <select name="braking_pattern" required>
+                <option value="Moderate">Moderate</option>
+                <option value="Smooth">Smooth</option>
+                <option value="Harsh">Harsh</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Distance Driven (km):</label>
+            <input type="number" step="0.01" name="distance" required>
+        </div>
+
+        <div class="form-group">
+            <label>Location History:</label>
+            <select name="location_history" required>
+                <option value="Rural">Rural</option>
+                <option value="Urban">Urban</option>
+                <option value="Highway">Highway</option>
+                <option value="Suburban">Suburban</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Vehicle Make:</label>
+            <select name="vehicle_make" required>
+                <option value="Tesla">Tesla</option>
+                <option value="Chevrolet">Chevrolet</option>
+                <option value="Honda">Honda</option>
+                <option value="Ford">Ford</option>
+                <option value="BMW">BMW</option>
+                <option value="Mercedes">Mercedes</option>
+                <option value="Toyota">Toyota</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Vehicle Model:</label>
+            <select name="vehicle_model" required>
+                <option value="SUV">SUV</option>
+                <option value="Sedan">Sedan</option>
+                <option value="Convertible">Convertible</option>
+                <option value="Hatchback">Hatchback</option>
+                <option value="Coupe">Coupe</option>
+                <option value="Truck">Truck</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Vehicle Year:</label>
+            <input type="number" name="vehicle_year" required>
+        </div>
+
+        <div class="form-group">
+            <label>Safety Features:</label>
+            <select name="safety_features" required>
+                <option value="Standard">Standard</option>
+                <option value="Basic">Basic</option>
+                <option value="Advanced">Advanced</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Past Claims:</label>
+            <input type="number" name="past_claims" required>
+        </div>
+
+        <div class="form-group">
+            <label>Previous Policy Lapses:</label>
+            <input type="number" name="policy_lapses" required>
+        </div>
+
+        <div class="form-group">
+            <label>Accident History:</label>
+            <select name="accident_history" required>
+                <option value="Minor">Minor</option>
+                <option value="Major">Major</option>
+                <option value="None">None</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Road Conditions:</label>
+            <select name="road_conditions" required>
+                <option value="Moderate">Moderate</option>
+                <option value="Good">Good</option>
+                <option value="Poor">Poor</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Weather Data:</label>
+            <select name="weather" required>
+                <option value="Snow">Snow</option>
+                <option value="Clear">Clear</option>
+                <option value="Fog">Fog</option>
+                <option value="Rain">Rain</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Traffic Congestion:</label>
+            <select name="traffic" required>
+                <option value="Moderate">Moderate</option>
+                <option value="High">High</option>
+                <option value="Low">Low</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Current Premium ($):</label>
+            <input type="number" step="0.01" name="current_premium" required>
+        </div>
+
+        <div class="form-group">
+            <label>Deductibles ($):</label>
+            <input type="number" step="0.01" name="deductibles" required>
+        </div>
+
+        <div class="form-group">
+            <label>Policy Type:</label>
+            <select name="policy_type" required>
+                <option value="Comprehensive">Comprehensive</option>
+                <option value="Third-Party">Third-Party</option>
+                <option value="Pay-As-You-Drive">Pay-As-You-Drive</option>
+            </select>
+        </div>
+
+        <button type="submit">Predict Premium</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+        <h2>Predicted Premium: ${{ "%.2f"|format(prediction) }}</h2>
+    </div>
+    {% endif %}
+</body>
+</html>
