@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dynamic Premium Prediction</title>
+    <title>Premium Prediction for Four wheelers Insurance</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,7 +36,9 @@
 </head>
 </head>
 <body>
-    <h1>Dynamic Premium Prediction</h1>
+    <h1>Premium Prediction for Four wheelers Insurance</h1>
+
+    <h3>Select values for below metrics</h3>
     
     <form method="POST">
         <div class="form-group">
@@ -160,12 +162,12 @@
         </div>
 
         <div class="form-group">
-            <label>Current Premium ($):</label>
+            <label>Current Premium (₹):</label>
             <input type="number" step="0.01" name="current_premium" required>
         </div>
 
         <div class="form-group">
-            <label>Deductibles ($):</label>
+            <label>Deductibles (₹):</label>
             <input type="number" step="0.01" name="deductibles" required>
         </div>
 
@@ -183,7 +185,7 @@
 
     {% if prediction %}
     <div class="result">
-        <h2>Predicted Premium: ${{ "%.2f"|format(prediction) }}</h2>
+        <h2>Expected Premium: ₹{{ "%.2f"|format(prediction) }}</h2>
     </div>
     {% endif %}
 </body>
